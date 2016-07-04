@@ -1,0 +1,81 @@
+Custom Linters With go/ast
+23 Jun 2016
+Tags: ast linter
+
+Mike Reedell
+Sr. Software Engineer, Comcast VIPER
+@mreedell
+mike@reedell.com
+http://mikereedell.com
+
+* AST Background
+
+- AST: Abstract Syntax Tree
+- Usually the result of step 2 of n in a compiler.
+- Code -> Lexer = Token Stream
+- Token Stream -> Parser = Abstract Syntax Tree
+
+* AST Example for r = r*(n-1)
+
+.image ast.png
+
+* Go & ASTs
+
+- The Go stdlib has go/ast to build and walk ASTs.
+- Very flexible & powerful.
+- Handles lexing and parsing for you.
+- No more `lex/flex` or `yacc/bison`.
+
+* Basic Usage
+
+- Read file for walk directory tree.
+- Visit each file:
+- Read file
+- Parse file to generate AST
+- Walk the AST (depth-first) with a custom visitor.
+
+* Framework
+
+Setup any required state:
+
+.code ast_skeleton.go 15,21
+
+* Framework
+
+Main
+
+.code ast_skeleton.go 24,42
+
+* Framework
+
+Walk the directory
+
+.code ast_skeleton.go 50,70
+
+* Framework
+
+Build the ASTs
+
+.code ast_skeleton.go 73,88
+
+* Framework
+
+Build the ASTs, continued
+
+.code ast_skeleton.go 89,106
+
+* Framework
+
+Visitor
+
+.code ast_skeleton.go 108,124
+
+* Example (Find chan sends not in select)
+
+.code sendfinder.go 93,112
+
+* References
+
+.link https://golang.org/pkg/go/ast/ go/ast package
+.link https://en.wikipedia.org/wiki/Abstract_syntax_tree AST Wikipedia Page
+.link http://www.codeproject.com/Articles/28299/Generate-AST-for-the-DLR AST Picture
